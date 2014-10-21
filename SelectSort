@@ -1,0 +1,37 @@
+#include<iostream>
+#include<string>
+#include<string.h>
+#include<stdio.h>
+using namespace std;
+
+const int MAXLEN = 100;
+
+//选择排序:每次在[i+1, n]中选择一个最小值，与a[i]交换位置
+void select_sort(int a[], int n)
+{
+	if(n==0 || n==1)
+		return;
+	for(int i = 0; i < n; ++i){
+		int index = i;
+		for(int j = i+1; j < n; ++j){
+			if(a[j]<a[index])
+				index = j;
+		}
+		int temp = a[i];
+		a[i] = a[index];
+		a[index] = temp;
+	}
+}
+
+int main()
+{
+	int array[8] = {3, 7, 9, 4, 6, 8, 4, 9};
+	select_sort(array, 8);
+
+	for(int i = 0; i < 8; ++i){
+		cout<<array[i]<<" ";
+	}
+	cout<<endl;
+
+	return 0;
+}
