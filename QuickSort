@@ -1,0 +1,38 @@
+#include<iostream>
+using namespace std;
+
+void qsort(int a[], int start, int end)
+{
+	if(start>=end)
+		return;
+	int pivot = a[start];
+	int front = start;
+	int back = end;
+	int temp = 0;
+	while(front<back){
+		while(front<back && a[back]>=pivot)
+			--back;
+		if(front<back)
+			a[front++] = a[back];
+		while(front<back && a[front]<pivot)
+			++front;
+		if(front<back)
+			a[back--] = a[front];
+	}
+	a[front] = pivot;
+	qsort(a, start, front-1);
+	qsort(a, front+1, end);
+}
+
+int main()
+{
+	int array[8] = {3, 7, 9, 4, 6, 8, 4, 9};
+	qsort(array, 0, 7);
+
+	for(int i = 0; i < 8; ++i){
+		cout<<array[i]<<" ";
+	}
+	cout<<endl;
+
+	return 0;
+}
