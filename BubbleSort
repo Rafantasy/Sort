@@ -1,0 +1,37 @@
+#include<iostream>
+using namespace std;
+
+void bubble_sort(int a[], int n)
+{
+	if(n == 0 || n == 1)
+		return;
+	for(int i = 0; i < n; ++i){
+		int j = n - 1;
+		int min = a[j];             //维护当前的最小值
+		int min_index = j;          //当前最小值的位置
+		int temp = 0;
+		for(;j >= 0; --j){
+			if(a[j]>min){
+				temp = a[j];
+				a[j] = min;
+				a[min_index] = temp;
+			}
+			else
+				min = a[j];
+			min_index = j;
+		}
+	}
+}
+
+int main()
+{
+	int array[8] = {3, 7, 9, 4, 6, 8, 4, 9};
+	bubble_sort(array, 8);
+
+	for(int i = 0; i < 8; ++i){
+		cout<<array[i]<<" ";
+	}
+	cout<<endl;
+
+	return 0;
+}
