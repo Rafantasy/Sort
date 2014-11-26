@@ -1,0 +1,49 @@
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+
+//调整父结点索引值为pos的子堆
+void HeapAdjust(int A[], int pos, int n){
+	while(2*pos+1 < n){
+		int max_child = 2*pos + 1;
+		if(2*pos+2 < n){
+			if(A[max_child] < A[2*pos+2])    //比较左右子树,记录其中最大值的index
+				max_child = 2*pos + 2;
+		}
+		if(A[pos] < A[max_child]){         //堆被破坏,需要重新调整
+			int temp = A[pos];
+			A[pos] = A[max_child];
+			A[max_child] = temp;
+			pos = max_child;                 //由于pos位置和max_child的位置交换,因此以max_child为根的子堆可能被破坏,因此接着调整 
+		}
+		else
+			break;                           //堆未被破坏,不需要调整
+	}
+	return;
+}
+
+//堆排序
+void HeapSort(int A[], int n){
+	if(n <= 1)
+		return;
+	//建成一个大根堆,从以最后一个叶子节点的父结点为根节点的子堆开始调整
+	for(int i = n/2-1; i >= 0; --i){
+		HeapAdjust(A, i, n);
+	}
+	for(int i = n-1; i >= 0; --i){
+		int temp = A[0];                     //将堆顶元素与最后一个元素做交换
+		A[0] = A[i];
+		A[i] = temp;
+		HeapAdjust(A, 0, i);                 //将除最后一个元素之外的堆重新调整成最大堆
+	}
+}
+int main()
+{
+	int A[8] ={12,36,24,85,47,30,53,91};
+	HeapSort(A, 8);
+	for(int i = 0; i < 8; ++i)
+		cout<<A[i]<<" ";
+	cout<<endl;
+	return 0;
+}
